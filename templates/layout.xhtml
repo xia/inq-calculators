@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" metal:define-macro="default">
+  <head>
+    <title tal:content="title | default">Site Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
+    <!--[if IE]>
+    <link rel="stylesheet" href="css/main.ie.css" type="text/css">
+    <![endif]-->
+    <tal:block metal:define-slot="extra_css" />
+    <tal:block metal:define-slot="extra_js" />
+  </head>
+  <body>
+    <header>
+    <div id="header">
+      <h1>Clan Inquisition Database</h1>
+      <div id="nav" metal:define-slot="nav">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li>Searches
+          <ul>
+            <li>Area Search</li>
+            <li>Mob Search</li>
+            <li>NPC Search</li>
+            <li>Pet Search</li>
+          </ul>
+          </li>
+          <li>Tools
+          <ul>
+            <li>Kills to Level</li>
+          </ul>
+          </li>
+          <li>Trainer
+          <ul>
+            <li>New Setup</li>
+            <li>Saved Setups</li>
+          </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </header>
+    <div id="content" metal:define-slot="content"></div>
+    <div id="footer" metal:define-slot="footer">
+      Brought to you by members of <a href="http://www.claninquisition.org/">Clan Inquisition</a>.
+      <a href="./feedback">Send Feedback</a> &middot; <a href="./credits">View Credits</a> &middot; <a href="#">View Source</a>
+    </div>
+  </body>
+</html>
+
