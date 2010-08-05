@@ -9,7 +9,4 @@
 /**
  * Tripoli suite
  */
-@import url(tripoli/tripoli.base.css);
-@import url(tripoli/plugins/tripoli.visual.css);
-@import url(tripoli/plugins/tripoli.type.css);
-@import url(tripoli/plugins/tripoli.layout.css);
+@import url(tripoli/tripoli.base.ie.css);
