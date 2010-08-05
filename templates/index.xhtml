@@ -1,265 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal">
-  <head>
-    <title>Inquisition Clan Database</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <!--[if IE]>
-    <link rel="stylesheet" type="text/css" href="css/main-IE.css"/>
-    <![endif]-->
-    <link rel="stylesheet" type="text/css" href="css/themes/inquisition/jquery-ui-1.7.2.custom.css"/>
-    <link rel="stylesheet" type="text/css" href="css/mapWidget.css"/>
-    <link rel="stylesheet" type="text/css" href="css/interactiveMap.css"/>
-    <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-    <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
-    <script type="text/javascript" src="js/jquery.delay.min.js"></script>
-    <script type="text/javascript" src="js/jquery.timers-1.2.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-    <script type="text/javascript" src="js/jquery.qtip-1.0.min.js"></script>
-    <script type="text/javascript" src="js/inqtools.js"></script>
-    <script type="text/javascript" src="js/Trainer.js"></script>
-    <script type="text/javascript" src="js/mapWidget.js"></script>
-    <script type="text/javascript" src="js/Polygon.js"></script>
-    <script type="text/javascript" src="js/interactiveMap.js"></script>
-    <script type="text/javascript">
-      <tal:block tal:repeat="name js" tal:content="structure string:var ${repeat/name/key} = ${name};"/>
-    </script>
-  </head>
+<tal:block metal:use-macro="layout.xhtml/default">
+  <div id="content" metal:fill-slot="content">
+    <p>Welcome to the Clan Inquisition Database.  Here you will find some tools
+    to help you in <a href="http://www.regnumonline.com.ar/">Regnum Online</a>.</p>
+    <h2>Site Map</h2>
+    <div id="site_map">
+      <h3>Searches</h3>
+      <dl>
+        <dt><a href="./areas">Area Search</a></dt>
+        <dd>Find the best area to grind for your level.</dd>
+        <dt><a href="./mobs">Mob Search</a></dt>
+        <dd>Find mobs by name.</dd>
+        <dt><a href="./npcs">NPC Search</a></dt>
+        <dd>Find NPCs by name or profession.</dd>
+        <dt><a href="./pets">Pet Search</a></dt>
+        <dd>Find tameable mobs for your hunter.</dd>
+      </dl>
 
-  <body>
-    <!-- The Tools -->
-        <div class="tool_popup" id="player_level">
-            <div class="ui-slider-marker" style="left:18.3673%;"/>
-            <div class="ui-slider-marker" style="left:38.7755%;"/>
-            <div class="ui-slider-marker" style="left:59.1837%;"/>
-            <div class="ui-slider-marker" style="left:79.5918%;"/>
-        </div>
-        <div class="tool_popup" id="level_range">
-            <div class="ui-slider-marker" style="left:15.7895%;"/>
-            <div class="ui-slider-marker" style="left:33.3333%;"/>
-            <div class="ui-slider-marker" style="left:50.8772%;"/>
-            <div class="ui-slider-marker" style="left:68.4211%;"/>
-            <div class="ui-slider-marker" style="left:85.9649%;"/>
-        </div>
-        <div class="tool_popup" id="max_power"/>
-        <div class="tool_popup" id="location_map">
-            <div id="region_map"/>
-            <ul id="realm_crests" class="horizontal-list ui-helper-reset ui-helper-clearfix">
-                <li realm="alsius" class="ROCrests alsius"/>
-                <li realm="alsius" class="label"><a>Alsius</a></li>
-                <li realm="ignis" class="ROCrests ignis"/>
-                <li realm="ignis" class="label"><a>Ignis</a></li>
-                <li realm="syrtis" class="ROCrests syrtis"/>
-                <li realm="syrtis" class="label"><a>Syrtis</a></li>
-            </ul>
-            <a id="realm_wz">Warzone</a>
-        </div>
-        <div id="errorDialog" title="Error">
-            <div class="message"/>
-        </div>
-    <!-- End The Tools -->
-    <div id="header">
-      <img src="images/header.png" alt="Inquisition Clan Database" />
+      <h3>Tools</h3>
+      <dl>
+        <dt><a href="./kills-to-level">Kills to Level</a></dt>
+        <dd>Calculate the number of mob kills until your next level.</dd>
+      </dl>
+
+      <h3>Trainer</h3>
+      <dl>
+        <dt><a href="./trainer/new">New Setup</a></dt>
+        <dd>Create a new setup.</dd>
+        <dt><a href="./trainer/setups">Saved Setups</a></dt>
+        <dd>Browse saved setups.</dd>
+      </dl>
     </div>
-    <div id="main">
-      <ul class="navigation">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#levels" widgets="level,levelrange,region" callback="cbLevels">Levels</a></li>
-        <li><a href="#mobs" widgets="mob_search,region" callback="cbMobs">Mobs</a></li>
-        <li><a href="#areas" widgets="level,levelrange,region" callback="cbAreas">Areas</a></li>
-        <li><a href="#pets" widgets="level,power,region" callback="cbPets">Pets</a></li>
-        <li><a href="#npcs" widgets="npc_search,profession,region" callback="cbNPCs">NPCs</a></li>
-        <li><a href="#map" load="refreshMaps">Map</a></li>
-        <li><a href="#shops">Shops</a></li>
-        <li><a href="#armor">Armor</a></li>
-        <li><a href="#trainer" widgets="class" callback="cbTrainer" load="cbInitTrainer">Trainer</a></li>
-        <li><a href="#credits" load="cbStartCredits" unload="cbStopCredits">Credits</a></li>
-      </ul>
-      <div id="tool_options">
-        <ul class="horizontal-list ui-helper-reset ui-helper-clearfix">
-          <li class="tool_option" widget="level">
-            <label>Character Level:</label>
-            <span class="tool_popup_button" popup="player_level" side="full">
-              <span class="tool_value" id="player_level_display"></span>
-              <span style="display:inline-block;" class="ui-icon ui-icon-arrowthickstop-1-s"/></span>
-          </li>
-          <li class="tool_option" widget="levelrange">
-            <label>Mob Level Range:</label>
-            <span class="tool_popup_button" popup="level_range" side="full">
-              <span class="tool_value" id="level_range_display"></span>
-              <span style="display:inline-block;" class="ui-icon ui-icon-arrowthickstop-1-s"/></span>
-          </li>
-          <li class="tool_option" widget="power">
-            <label>Tame Power Level:</label>
-            <span class="tool_popup_button" popup="max_power" side="full">
-              <span class="tool_value" id="max_power_display"></span>
-              <span style="display:inline-block;" class="ui-icon ui-icon-arrowthickstop-1-s"/></span>
-          </li>
-          <li class="tool_option" widget="mob_search">
-            <label for="mob_search">Mob Name:</label>
-            <input type="text" id="mob_search" />
-          </li>
-          <li class="tool_option" widget="npc_search">
-            <label for="npc_search">NPC Name:</label>
-            <input type="text" id="npc_search" />
-          </li>
-          <li class="tool_option" widget="profession">
-              <!-- Yeah we could pull this dynamically from the DB.. but why increase db load? -->
-              <label for="profession">Profession:</label>
-              <select id="profession">
-                  <option value=":">Any Profession</option>
-                  <option value="Arena Guardian:">Arena Guardian</option>
-                  <option value="Clan Notary:">Clan Notary</option>
-                  <optgroup label="Denizens">
-                    <option value="Denizen:">Any Denizen</option>
-                    <option value="Denizen:Animal">Animal</option>
-                    <option value="Denizen:Denizen">Denizen</option>
-                    <option value="Denizen:Guide">Guide</option>
-                    <option value="Denizen:Noble">Noble</option>
-                    <option value="Denizen:Town Crier">Town Crier</option>
-                  </optgroup>
-                  <optgroup label="Guards">
-                    <option value="Guard:">Any Guard</option>
-                    <option value="Guard:Guard">Guard</option>
-                    <option value="Guard:General">General</option>
-                    <option value="Guard:Elite guard">Elite guard</option>
-                  </optgroup>
-                  <optgroup label="Merchants">
-                    <option value="Merchant:">Any Merchant</option>
-                    <option value="Merchant:Alchemist">Alchemist</option>
-                    <option value="Merchant:Blacksmith">Blacksmith</option>
-                    <option value="Merchant:Enchanter">Enchanter</option>
-                    <option value="Merchant:Farrier">Farrier</option>
-                    <option value="Merchant:Herbalist">Herbalist</option>
-                    <option value="Merchant:Merchant">Merchant</option>
-                    <option value="Merchant:Tailor">Tailor</option>
-                    <option value="Merchant:Weaponsmith">Weaponsmith</option>
-                    <option value="Merchant:Woodworker">Woodworker</option>
-                  </optgroup>
-                  <option value="Teleporter:">Teleporter</option>
-                  <optgroup label="Trainers">
-                    <option value="Trainer:">Any Trainer</option>
-                    <option value="Trainer:Archer Trainer">Archer Trainer</option>
-                    <option value="Trainer:Hunter Trainer">Hunter Trainer</option>
-                    <option value="Trainer:Marksman Trainer">Marksman Trainer</option>
-                    <option value="Trainer:Mage Trainer">Mage Trainer</option>
-                    <option value="Trainer:Conjurer Trainer">Conjurer Trainer</option>
-                    <option value="Trainer:Warlock Trainer">Warlock Trainer</option>
-                    <option value="Trainer:Warrior Trainer">Warrior Trainer</option>
-                    <option value="Trainer:Barbarian Trainer">Barbarian Trainer</option>
-                    <option value="Trainer:Knight Trainer">Knight Trainer</option>
-                  </optgroup>
-              </select>
-          </li>
-          <li class="tool_option" widget="class">
-              <label>Class:</label>
-              <select id="char_class">
-                    <option value="">-- Class --</option>
-                    <option>Archer</option>
-                    <option value="Hunter">&raquo; Hunter</option>
-                    <option value="Marksman">&raquo; Marksman</option>
-                    <option>Mage</option>
-                    <option value="Conjurer">&raquo; Conjurer</option>
-                    <option value="Warlock">&raquo; Warlock</option>
-                    <option>Warrior</option>
-                    <option value="Barbarian">&raquo; Barbarian</option>
-                    <option value="Knight">&raquo; Knight</option>
-              </select>
-          </li>
-          <li class="tool_option" widget="region">
-            <label>Location:</label>
-            <span class="tool_popup_button" popup="location_map">
-              <span class="tool_value" id="location_map_display"></span>
-              <span style="display:inline-block;" class="ui-icon ui-icon-arrowthickstop-1-s"/></span>
-          </li>
-          <li class="tool_option" widget="go">
-              <button id="go">Go</button>
-          </li>
-        </ul>
-      </div>
-      <div> <!-- wrapper around tabs -->
-          <div id="home" class="content">
-            <h2>Welcome to the Inquisition Clan Database!</h2>
-            Here you can find some useful tools to help you in Regnum Online.<br />
-            List of the tools:<br />
-            <ul class="legend">
-              <li><a class="tablink" href="#levels">Levels</a> - calculate the number of mob kills till you level up.</li>
-              <li><a class="tablink" href="#mobs">Mobs</a> - search for the mobs by name.</li>
-              <li><a class="tablink" href="#areas">Areas</a> - find the best area for a grind.</li>
-              <li><a class="tablink" href="#pets">Pets</a> - find the pet for your hunter.</li>
-              <li><a class="tablink" href="#npcs">NPCs</a> - search for the quest NPCs.</li>
-              <li><a class="tablink" href="#shops">Shops</a> - find out which merchants sell stuff for your class.</li>
-              <li><a class="tablink" href="#armor">Armor</a> - calculate armor points per damage type of your armor set.</li>
-              <li><a class="tablink" href="#trainer">Trainer</a> - build the setup for your character.</li>
-              <li><a class="tablink" href="#credits">Credits</a> - list who provided you all this.</li>
-            </ul>
-          </div>
-          <div id="levels" class="content">
-            <h2>Levels</h2>
-            <p>
-                Trying to find that <em>perfect</em> mob to get you to the next level?
-                Ask me, I'll tell you the <em>best</em> mob to go after.
-            </p>
-            <div id="levels_results" class="results"/>
-          </div>
-          <div id="mobs" class="content">
-            <h2>Mobs</h2>
-            <p>
-            Having trouble finding that beast or monster to finish a quest?
-            Ask me, I'll help you locate them.
-            </p>
-            <div id="mobs_results" class="results"/>
-          </div>
-          <div id="areas" class="content">
-            <h2>Areas</h2>
-            <p>
-            Trying to find that <em>sweet</em> area to grind without stopping?
-            Ask me, I'll help you locate the best one for your level.
-            </p>
-            <div id="areas_results" class="results"/>
-          </div>
-          <div id="pets" class="content">
-            <h2>Pets</h2>
-            <p>
-            Let me find the best pet for you.
-            </p>
-            <div id="pets_results" class="results"/>
-          </div>
-          <div id="npcs" class="content">
-            <h2>NPCs</h2>
-            <p>Having trouble finding that NPC to finish a quest?
-            Ask me, I'll help you locate them.</p>
-            <div id="npcs_results" class="results"/>
-          </div>
-          <div id="shops" class="content">
-            <h2>Shops</h2>
-            Coming soon
-          </div>
-          <div id="armor" class="content">
-            <h2>Armor Points</h2>
-            Coming soon
-          </div>
-          <div id="trainer" class="content">
-            <h2>Trainer</h2>
-            <p>Trying to find that sweet spell setup? Let me help.</p>
-            <div id="trainer_tool"/>
-          </div>
-          <div id="credits" class="content">
-            <h2>Credits</h2>
-            <div id="credit_scroller">
-                <div class="credit" tal:repeat="credit credits">
-                    <div class="name" tal:content="credit/name | default">User Name</div>
-                    <div class="job" tal:content="credit/job | default">Stuf Stuff and More Stuff</div>
-                </div>
-            </div>
-          </div>
-          <div id="map" class="content">
-              <h2>Look at the pretty map!</h2>
-              <div id="RO_InteractiveMap"/>
-          </div>
-      </div>
-    </div>
-  </body>
-</html>
+  </div>
+</tal:block>
