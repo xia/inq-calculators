@@ -14,7 +14,8 @@
     <header>
     <div id="header">
       <h1>Clan Inquisition Database</h1>
-      <div id="nav" metal:define-slot="nav">
+      <div id="nav">
+        <tal:block metal:define-slot="nav">
         <ul>
           <li><a href="">Home</a></li>
           <li>Searches
@@ -37,13 +38,18 @@
           </ul>
           </li>
         </ul>
+        </tal:block>
       </div>
     </div>
     </header>
-    <div id="content" metal:define-slot="content"></div>
-    <div id="footer" metal:define-slot="footer">
+    <div id="content" class="content">
+      <tal:block metal:define-slot="content" />
+    </div>
+    <div id="footer">
+      <tal:block metal:define-slot="footer">
       Brought to you by members of <a href="http://www.claninquisition.org/">Clan Inquisition</a>.
       <a href="./feedback">Send Feedback</a> &middot; <a href="./credits">View Credits</a> &middot; <a href="#">View Source</a>
+      </tal:block>
     </div>
   </body>
 </html>
