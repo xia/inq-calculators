@@ -166,7 +166,7 @@ $.extend(Trainer.prototype, {
             for (i=0,l=disc.length; i<l; ++i) {
                 this._values[disc[i]] = {
                     level: 1,
-                    power: [0,1,1,1,1,1,1,1,1,1,1]
+                    power: [0,TrainerData.min_power_level,1,1,1,1,1,1,1,1,1]
                 };
                 this._generateDisciplineRow(disc[i]);
                 this.spellLevel(disc[i],1);
@@ -179,7 +179,8 @@ $.extend(Trainer.prototype, {
     loadData: function(cb) {
         var self = this;
         var args = $.makeArray(arguments).slice(1);
-        $.getJSON("data/Trainer.json",undefined,function(data, textStatus) {
+        //$.getJSON("data/Trainer.json",undefined,function(data, textStatus) {
+        $.getJSON("trainer/1.7_beta1/trainerdata.json",undefined,function(data, textStatus) {
             TrainerData = data;
             if ($.isFunction(cb)) {
                 cb.apply(self, args);
@@ -259,7 +260,6 @@ $.extend(Trainer.prototype, {
             for (var i=1; i<=10; ++i) {
                 var o2 = o.find('.spell_'+i);
                 if (o2.length) {
-                    //o2.toggleClass('active',i <= level);
                     if (i <= level) {
                         o2.addClass('active');
                         o2.find('.power').text(this._values[discipline].power[i]);
@@ -271,9 +271,9 @@ $.extend(Trainer.prototype, {
                     if (q.elements.tooltip && q.elements.tooltip.is(':visible')) {
                         this._spellTooltip(q);
                     }
-                    // any deactivated spells set power level to 1
+                    // any deactivated spells set power level to minimum
                     if (i > level) {
-                        this._values[discipline].power[i] = 1;
+                        this._values[discipline].power[i] = TrainerData.min_power_level;
                     }
                 }
             }
@@ -316,7 +316,7 @@ $.extend(Trainer.prototype, {
                 return this;
             }
             var old = this._values[discipline].power[level];
-            this._values[discipline].power[level] = rangeLimit(power, 1, 5);
+            this._values[discipline].power[level] = rangeLimit(power, TrainerData.min_power_level, 5);
             if (old != this._values[discipline].power[level]) {
                 this._updateDisciplineData(discipline);
                 var elem = $('*[discipline="'+discipline+'"] .spell_'+level);
@@ -391,7 +391,7 @@ $.extend(Trainer.prototype, {
         var level = this._values[discipline].level;
         var points = 0;
         for (var i=1; i<=10; ++i) {
-            points += (this._values[discipline].power[i] - 1);
+            points += (this._values[discipline].power[i] - TrainerData.min_power_level);
         }
         $('*[discipline="'+discipline+'"] .info')
             .text(
@@ -412,7 +412,7 @@ $.extend(Trainer.prototype, {
                 level = TrainerData.required.level[disc_level];
             }
             for (var i=1; i<=10; ++i) {
-                power += (this._values[d].power[i] -1);
+                power += (this._values[d].power[i] - TrainerData.min_power_level);
             }
         }
         // calc required level
