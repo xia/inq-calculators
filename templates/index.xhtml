@@ -74,7 +74,7 @@
         <li><a href="#map" load="refreshMaps">Map</a></li>
         <li><a href="#shops">Shops</a></li>
         <li><a href="#armor">Armor</a></li>
-        <li><a href="#trainer" widgets="class" callback="cbTrainer" load="cbInitTrainer">Trainer</a></li>
+        <li><a href="#trainer" widgets="game_version,class" callback="cbTrainer" load="cbInitTrainer">Trainer</a></li>
         <li><a href="#credits" load="cbStartCredits" unload="cbStopCredits">Credits</a></li>
       </ul>
       <div id="tool_options">
@@ -151,6 +151,13 @@
                     <option value="Trainer:Barbarian Trainer">Barbarian Trainer</option>
                     <option value="Trainer:Knight Trainer">Knight Trainer</option>
                   </optgroup>
+              </select>
+          </li>
+          <li class="tool_option" widget="game_version">
+              <label>Game Version:</label>
+              <select id="game_version">
+                    <option value="1.6.2">1.6.2 (Live)</option>
+                    <option value="1.7_beta1">Amun</option>
               </select>
           </li>
           <li class="tool_option" widget="class">

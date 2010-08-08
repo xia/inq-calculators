@@ -55,9 +55,10 @@ var l_classTypeMasks = {
         'Warrior':0x40,
         'Barbarian':0x41,
         'Knight':0x42
-}
+};
 var l_classTypes = Object.keys(l_classTypeMasks);
 var l_classMask = 0xF0;
+var l_gameVersions = [ '1.6.2', '1.7_beta1' ];
 
 var TrainerData = null;
 
@@ -140,7 +141,7 @@ function Trainer(aElem) {
 
             this.elements.tooltip.draggable();
         }
-    }
+    };
 }
 
 var encodeChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJ";
@@ -155,9 +156,18 @@ $.extend(Trainer.prototype, {
             return this;
         }
     },
+    gameVersion: function(v) {
+        if (v === undefined) {
+            return this._version;
+        } else {
+            this._version = verifyLookup(l_gameVersions, v, '');
+            this.loadData();
+            return this;
+        }
+    },
     updateView: function() {
         this._checkData();
-        if (this._class != this._viewClass) {
+        if (this._class != this._viewClass || this._version != this._viewVersion) {
             this._values = {};
             this._elems.wrapper.find('.spell').qtip('destroy');
             this._elems.wrapper.empty();
@@ -166,31 +176,34 @@ $.extend(Trainer.prototype, {
             for (i=0,l=disc.length; i<l; ++i) {
                 this._values[disc[i]] = {
                     level: 1,
-                    power: [0,TrainerData.min_power_level,1,1,1,1,1,1,1,1,1]
+                    power: [0,TrainerData.min_power_level,0,0,0,0,0,0,0,0,0]
                 };
                 this._generateDisciplineRow(disc[i]);
                 this.spellLevel(disc[i],1);
             }
 
             this._viewClass = this._class;
+            this._viewVersion = this._version;
         }
         return this;
     },
     loadData: function(cb) {
         var self = this;
         var args = $.makeArray(arguments).slice(1);
-        //$.getJSON("data/Trainer.json",undefined,function(data, textStatus) {
-        $.getJSON("trainer/1.7_beta1/trainerdata.json",undefined,function(data, textStatus) {
+        this._datapath = "trainer/" + this._version;
+        $.getJSON(this._datapath + "/trainerdata.json",undefined,function(data, textStatus) {
             TrainerData = data;
             if ($.isFunction(cb)) {
                 cb.apply(self, args);
             }
+            self.updateView();
         });
     },
     encode: function() {
         var disc = this._getDisciplines();
 
-        var ret = $.inArray(this._class, l_classTypes);
+        var ret = $.inArray(this._version, l_gameVersions)
+          + $.inArray(this._class, l_classTypes);
 
         for (var d=0,l=disc.length; d<l; ++d) {
             var level = this._values[disc[d]].level;
@@ -209,10 +222,11 @@ $.extend(Trainer.prototype, {
     },
     decode: function(text) {
         // Load class
-        this.characterClass(l_classTypes[text[0]]);
+        this.gameVersion(l_gameVersions[text[0]]);
+        this.characterClass(l_classTypes[text[1]]);
         // Set powers and levels
         var disc = this._getDisciplines();
-        var c = 1;
+        var c = 2;
         for (var d=0,l=disc.length; d<l; ++d) {
             var level = 0;
             var spells = [];
