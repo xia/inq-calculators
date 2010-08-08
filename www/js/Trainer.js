@@ -167,7 +167,7 @@ $.extend(Trainer.prototype, {
     },
     updateView: function() {
         this._checkData();
-        if (this._class != this._viewClass || this._version != this._viewVersion) {
+        if ((this._class != this._viewClass) || (this._version != this._viewVersion)) {
             this._values = {};
             this._elems.wrapper.find('.spell').qtip('destroy');
             this._elems.wrapper.empty();
@@ -348,15 +348,17 @@ $.extend(Trainer.prototype, {
         }
     },
     _generateDisciplineRow: function(discipline) {
-        var div = $('<div class="ui-helper-clearfix discipline"/>')
+        var dword = discipline.replace(/ /g, ''),
+            div = $('<div class="ui-helper-clearfix discipline"/>')
                 .attr('discipline',discipline)
-                .addClass('discipline_'+discipline.replace(/ /g,''));
+                .addClass('discipline_'+dword);
         $('<label/>').text(discipline).appendTo(div);
         $('<div class="info"/>').appendTo(div);
         for (var i=1; i<=10; ++i) {
             var s = $('<div class="spell pointer"/>')
                 .addClass('spell_'+i)
                 .css('backgroundPosition',(-i*this._iconsize)+'px 0px')
+                .css('background-image','url('+this._datapath+'/icons/'+dword+'.jpg)')
                 .data('spell',{discipline:discipline,level:i})
                 .append('<div class="power"/>');
             $('<div class="spell_wrapper"/>')

@@ -567,8 +567,8 @@ function getKillsToLevelByArea(player_level, player_xp, min_level, max_level, re
 }
 
 function cbTrainer() {
-    Trainer.gameVersion($('#game_version').val());
     Trainer.characterClass($('#char_class').val());
+    Trainer.gameVersion($('#game_version').val());
 }
 
 function cbInitTrainer(loadSetup) {
