@@ -3,5 +3,4 @@ config.php
 *.swp
 db
 images/map
-images/trainer
-data/Trainer.json
+www/trainer
