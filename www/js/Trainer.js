@@ -152,7 +152,6 @@ $.extend(Trainer.prototype, {
             return this._class;
         } else {
             this._class = verifyLookup(l_classTypes, v, '');
-            this.updateView();
             return this;
         }
     },
@@ -161,7 +160,6 @@ $.extend(Trainer.prototype, {
             return this._version;
         } else {
             this._version = verifyLookup(l_gameVersions, v, '');
-            this.loadData();
             return this;
         }
     },
