@@ -85,9 +85,8 @@ function Trainer(aElem) {
     this._values = {};
     this._hoveredSpell = null;
     this._iconsize = 48;
-    /** @todo Kludgy.. Should use rooted jquery search $('div.spell',this.element[0]).live() in jQuery 1.4 */
     var self = this;
-    $(this.element.selector+' div.spell')
+    $(this.element).find('div.spell')
         .live('click',function(e) {
             self._spellClick(this, e);
         });
