@@ -1,2 +1,25 @@
 msgid "title"
 msgstr "Inquisition Clan Database"
+
+msgid "error"
+msgstr "Error"
+
+msgid "warzone"
+msgstr "Warzone"
+
+msgid "help"
+msgstr "Help"
+
+msgid "license information"
+msgstr "License Information"
+
+msgid "provide feedback"
+msgstr "Provide Feedback"
+
+msgid "feedback-intro"
+msgstr "Press Start to provide updates to the data or report an issue."
+
+msgid "feedback-type-q"
+msgstr "What kind of feedback do you wish to report?"
+
+

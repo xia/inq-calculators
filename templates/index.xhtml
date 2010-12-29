@@ -62,18 +62,19 @@
                 <li realm="syrtis" class="ROCrests syrtis"/>
                 <li realm="syrtis" class="label"><a>Syrtis</a></li>
             </ul>
-            <a id="realm_wz">Warzone</a>
+            <a id="realm_wz" i18n:translate="">Warzone</a>
         </div>
-        <div id="errorDialog" class="ui-helper-hidden" title="Error">
+        <div id="errorDialog" class="ui-helper-hidden" title="Error" i18n:attributes="title">
             <div class="message"/>
         </div>
-        <div id="helpDialog" class="ui-helper-hidden" title="Help"/>
-        <div id="licenseDialog" class="ui-helper-hidden" title="License Information"/>
-        <div id="feedbackDialog"  class="ui-helper-hidden" title="Provide Feedback">
+        <div id="helpDialog" class="ui-helper-hidden" title="Help" i18n:attributes="title"/>
+        <div id="licenseDialog" class="ui-helper-hidden" title="License Information" i18n:attributes="title"/>
+        <div id="feedbackDialog"  class="ui-helper-hidden" title="Provide Feedback" i18n:attributes="title">
             <div class="step" step="intro">
-                <p>Press Start to provide updates to the data or report an issue.</p>
+                <p i18n:translate="feedback-intro">Press Start to provide updates to the data or report an issue.</p>
             </div>
             <div class="step" step="start">
+                <p i18n:translate="feedback-type-q">What kind of feedback do you wish to report?</p>
                 <p>What kind of feedback do you wish to report?</p>
                 <input type="radio" name="fb_requesttype" id="fb_requesttype_new" value="new"/><label class="pointer" for="fb_requesttype_new">Missing Mob, NPC, or Area</label><br/>
                 <input type="radio" name="fb_requesttype" id="fb_requesttype_update" value="update"/><label class="pointer" for="fb_requesttype_update">Correction to a Mob, NPC, or Area</label><br/>
