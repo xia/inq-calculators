@@ -16,10 +16,23 @@ msgstr "License Information"
 msgid "provide feedback"
 msgstr "Provide Feedback"
 
+msgid "feedback"
+msgstr "Feedbaaaaack"
+
 msgid "feedback-intro"
 msgstr "Press Start to provide updates to the data or report an issue."
 
 msgid "feedback-type-q"
 msgstr "What kind of feedback do you wish to report?"
 
+msgid "feedback-type-new"
+msgstr "Missing mob, NPC or area"
 
+msgid "feedback-type-update"
+msgstr "Correction to a mob, NPC or area"
+
+msgid "feedback-type-other"
+msgstr "Any other feedback"
+
+msgid "feedback-contact-q"
+msgstr "(Optional) Enter your contact details. This will only be used to contact you if we need more information."
