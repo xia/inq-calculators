@@ -45,7 +45,7 @@ if ($config->memcache) {
 
 $tr = new PHPTAL_GetTextTranslator();
 $tr->setLanguage('en_US');
-$tr->addDomain('main', APP_ROOT . '/locales');
+$tr->addDomain('index', APP_ROOT . '/locales');
 
 if (empty($_GET['PATH_INFO'])) {
   try {
@@ -57,7 +57,7 @@ if (empty($_GET['PATH_INFO'])) {
 
     $tpl = new Template("index.xhtml");
 
-    $tr->useDomain('main');
+    $tr->useDomain('index');
     $tpl->setTranslator($tr);
 
     $tpl->js = array(
