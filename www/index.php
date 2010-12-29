@@ -44,7 +44,7 @@ if ($config->memcache) {
 }
 
 $tr = new PHPTAL_GetTextTranslator();
-$tr->setLanguage('en_US');
+$tr->setLanguage(Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']), 'en_US');
 $tr->addDomain('index', APP_ROOT . '/locales');
 
 if (empty($_GET['PATH_INFO'])) {
