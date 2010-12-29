@@ -1,0 +1,2 @@
+msgid "title"
+msgstr "Inquisition Clan Database"
