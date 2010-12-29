@@ -75,9 +75,9 @@
             </div>
             <div class="step" step="start">
                 <p>What kind of feedback do you wish to report?</p>
-                <label class="pointer"><input type="radio" name="fb_requesttype" value="new"/>Missing Mob, NPC, or Area</label><br/>
-                <label class="pointer"><input type="radio" name="fb_requesttype" value="update"/>Correction to a Mob, NPC, or Area</label><br/>
-                <label class="pointer"><input type="radio" name="fb_requesttype" value="feedback"/>Any other feedback</label>
+                <input type="radio" name="fb_requesttype" id="fb_requesttype_new" value="new"/><label class="pointer" for="fb_requesttype_new">Missing Mob, NPC, or Area</label><br/>
+                <input type="radio" name="fb_requesttype" id="fb_requesttype_update" value="update"/><label class="pointer" for="fb_requesttype_update">Correction to a Mob, NPC, or Area</label><br/>
+                <input type="radio" name="fb_requesttype" id="fb_requesttype_feedback" value="feedback"/><label class="pointer" for="fb_requesttype_feedback">Any other feedback</label>
                 <p class="formdesc">Optionally enter in your character name, server, and email. This will ONLY be used to contact you if we need more information.</p>
                 <div class="formrow"><label>Character Name:</label><input type="text" name="fb_reporter_name"/></div>
                 <div class="formrow"><label>Server:</label><input type="text" name="fb_reporter_server"/></div>
@@ -89,9 +89,9 @@
             <div class="step" step="itemtype">
                 <p>What type of item is wrong or missing?</p>
                 <div>
-                <label class="pointer"><input type="radio" name="fb_itemtype" value="mob"/>Mob</label><br/>
-                <label class="pointer"><input type="radio" name="fb_itemtype" value="npc"/>NPC</label><br/>
-                <label class="pointer"><input type="radio" name="fb_itemtype" value="area"/>Area</label><br/>
+                  <input type="radio" name="fb_itemtype" id="fb_itemtype_mob" value="mob"/><label class="pointer" for="fb_itemtype_mob">Mob</label><br/>
+                  <input type="radio" name="fb_itemtype" id="fb_itemtype_npc" value="npc"/><label class="pointer" for="fb_itemtype_npc">NPC</label><br/>
+                  <input type="radio" name="fb_itemtype" id="fb_itemtype_area" value="area"/><label class="pointer" for="fb_itemtype_area">Area</label><br/>
                 </div>
                 <div class="ui-helper-hidden ui-state-error error">
                     Select the type of item before proceeding.
